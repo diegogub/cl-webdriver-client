@@ -44,17 +44,6 @@ See: https://www.w3.org/TR/webdriver1/#get-page-source"
        :initform (error "Must supply :id")
        :reader element-id)))
 
-(defmethod print-object ((element element) stream)
-  (print-unreadable-object (element stream :type t :identity nil)
-    (with-slots (id) element
-      (format stream
-              "{id:~a}~a"
-              id
-              (let ((html-id (element-attribute element "id")))
-                (or (and (not (alexandria:emptyp html-id))
-                         (format nil " id=~a" html-id))
-                    ""))))))
-
 (defun handle-find-error (err &key value by)
   "Signal the correct type of error depending on PROTOCOL-ERROR-STATUS.
 
